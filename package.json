@@ -18,7 +18,10 @@
     "deploy": "astro build && scp -r dist ayo@ayco.io:~/cozy/"
   },
   "devDependencies": {
-    "astro": "^4.12.2"
+    "@vite-pwa/assets-generator": "^0.2.4",
+    "@vite-pwa/astro": "^0.4.0",
+    "astro": "^4.12.2",
+    "workbox-window": "^7.1.0"
   },
   "dependencies": {
     "@astrojs/node": "^8.3.2",
@@ -29,6 +32,7 @@
     "astro-iconify": "^1.2.0",
     "fastify": "^4.28.1",
     "sass": "^1.77.8",
-    "ultrahtml": "^1.5.3"
+    "ultrahtml": "^1.5.3",
+    "vite-plugin-pwa": "^0.20.1"
   }
 }

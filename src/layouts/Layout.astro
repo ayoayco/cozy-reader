@@ -1,5 +1,7 @@
 ---
-import { ArticleData } from "@extractus/article-extractor";
+import { pwaInfo } from 'virtual:pwa-info';
+import { pwaAssetsHead } from 'virtual:pwa-assets/head';
+import type { ArticleData } from "@extractus/article-extractor";
 import "./reset.css";
 import Footer from "../components/Footer.astro";
 export interface Props {
@@ -8,6 +10,9 @@ export interface Props {
 
 const { article } = Astro.props;
 const appTitle = article?.title ? `${article.title} | Cozy` : 'Cozy';
+
+// replaced dynamically
+const buildDate = __DATE__;
 ---
 
 <!DOCTYPE html>
@@ -17,6 +22,12 @@ const appTitle = article?.title ? `${article.title} | Cozy` : 'Cozy';
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>{appTitle}</title>
+
+    { pwaAssetsHead.themeColor && <meta name="theme-color" content={pwaAssetsHead.themeColor.content} /> }
+    { pwaAssetsHead.links.map(link => (
+        <link {...link} />
+    )) }
+    { pwaInfo && <Fragment set:html={pwaInfo.webManifest.linkTag} /> }
 
     {
       /**
@@ -55,7 +66,10 @@ const appTitle = article?.title ? `${article.title} | Cozy` : 'Cozy';
           <slot name="library" />
         </div>
       </div>
-      <slot name="footer">
+      <slot name="footer" />
+      <div>
+        Built at: { buildDate }
+      </div>
     </div>
   </body>
 </html>
